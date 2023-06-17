@@ -1,0 +1,21 @@
+body{
+    background-image: linear-gradient(to right,rgb(128, 0, 105),rgb(228, 27, 221),hotpink);
+}
+ h1{
+    text-align: center;
+    background-color: rgba(240, 248, 255, 0.511);
+ }
+ 
+ pre{
+   font-size: 15px;
+   font-weight: 600;
+   background-color: rgba(128, 255, 0, 0.733);
+ }
+ p{
+    font-size: 15px;
+    background-color: rgba(240, 248, 255, 0.518);
+ }
+  .pretag{
+    font-size: 15px;
+    background-color: rgba(240, 248, 255, 0.518);
+  }

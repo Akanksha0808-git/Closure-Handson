@@ -1,0 +1,143 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>closure</title>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>CLOSURE Q/A</h1>
+   
+    <pre>Q1-"function counter(){
+        var counter = 0;
+    
+        function IncreaseCounter() {
+            return counter += 1;
+        };
+    
+        return IncreaseCounter;
+    }
+    
+    var counter = counter();
+    alert(counter());
+    alert(counter());
+    alert(counter());
+    alert(counter());"</pre>
+    <p>ANS: The counter function is defined. It has an inner variable counter initialized with 0.
+
+        Inside the counter function, another function named IncreaseCounter is defined. This inner function has access to the counter variable due to closures.
+        
+        The IncreaseCounter function increments the counter variable by 1 and returns its updated value.
+        
+        Finally, the counter function itself is invoked and its return value is assigned to the variable counter. This creates a closure where the counter variable is accessible only through the IncreaseCounter function.
+        
+        Subsequently, the counter function (which now holds the IncreaseCounter function) is invoked multiple times using the counter() syntax. Each invocation increments the counter variable and returns its updated value.
+        
+        The alert function is used to display the returned value of each invocation, which represents the incremented counter value. </p>
+    <pre>Q2 -"let count = 0;
+        (function () {
+          if (count === 0) {
+            let count = 1;
+            console.log(count); // What is logged?
+          }
+          console.log(count); // What is logged?
+        })();"</pre>
+        <p>ANS: Output : 1 
+            0 <br>
+            Explanation: <br>
+The code defines a variable count with the initial value of 0. It then immediately invokes an anonymous function using an IIFE (Immediately Invoked Function Expression).
+
+Inside the IIFE, there is a conditional statement that checks if the count variable is equal to 0. Since there is a let statement inside the conditional block that defines a new block-scoped count variable with the value 1, it shadows the outer count variable only within that block.
+
+When the code executes the console.log(count) statement inside the conditional block, it will output 1 because it's referring to the locally scoped count variable with the value 1 within that block.
+
+After that, the code executes the second console.log(count) statement outside the conditional block. Here, it refers to the outer count variable, which has the initial value of 0. Therefore, it outputs 0.
+
+Hence, the output of the code is 1 followed by 0.
+            </p>
+        <pre>Q3- "for (var i = 0; i < 3; i++) {
+            setTimeout(function log() {
+              console.log(i); // What is logged?
+            }, 1000);
+          }"</pre>
+          <p>ANS:  Output: 3 <br>
+                  3  <br>
+                  3  <br>
+            
+            Explanation:
+            
+            The setTimeout function is executed asynchronously after a delay of 1000 milliseconds (1 second). During this delay, the for loop completes its iterations.
+            
+            In each iteration of the loop, a callback function log is scheduled to be executed after 1 second. However, the actual execution of the callback function happens after the loop completes.
+            
+            Since the var keyword is used to declare the variable i in the for loop, it has function scope, not block scope. This means that the i variable is shared across all iterations of the loop and its value gets updated in each iteration.
+            
+            By the time the first callback function executes, the value of i has already reached 3, as the loop has completed. Therefore, when console.log(i) is called inside each callback function, it will log the final value of i, which is 3, for all three iterations.
+            
+            Hence, the output will be three consecutive logs of the value 3.</p>
+          <pre>Q4-Write a code to calculate area of a rectangle using inner function. In this case outer function should accept parameter length and inner function should accept parameter breadth. </pre>
+          <pre class="pretag">ANS-  function calculateRectangleArea(length) {
+            function innerFunction(breadth) {
+              return length * breadth;
+            }
+          
+            return innerFunction;
+          }
+          
+          // output// 
+          const RectangleArea = calculateRectangleArea(9); // Outer function is called with the length parameter
+          const Area = rectangleArea(15); // Inner function is called with the breadth parameter
+          console.log(Area); </pre>
+          
+          <pre>Q5- Take a variable in outer function and create an inner function to increase the counter every time it is called </pre>
+          <P>ANS- Explanation: <br>  The counter function creates a local variable count and defines an inner function increaseCounter. The inner function has access to the count variable through closure and increments it every time it is called.
+
+          By calling the counter function and assigning its return value to myCounter, we create an instance of the inner function. Subsequent calls to myCounter will execute the inner function, increasing the counter and logging the updated count to the console. </P>
+          <pre>Q6- "Print Output
+
+            var a = 12;
+            (function () {
+              alert(a);
+            })();" </pre>
+            <P>ANS- Explanation: <br>
+                The code defines a variable a with a value of 12. Then, it immediately invokes a self-executing anonymous function (also known as an IIFE) using parentheses () at the end. Inside the function, it alerts the value of a, which is 12. Therefore, when the code is executed, it will display an alert box with the value 12. </P>
+            <pre>Q7- "var a = 10;
+                var x = (function () {
+                  var a = 12;
+                  return function () {
+                    alert(a);
+                  };
+                })();
+                x();"</pre>
+                <p>ANS- Output: 12 <br>
+                    Explanation: <br>
+              The code defines a variable a with a value of 10. It then defines a variable x and assigns it the result of a self-executing anonymous function (IIFE). Inside the IIFE, a new variable a is defined with a value of 12. The IIFE returns an inner function that alerts the value of a.
+
+            When the line x(); is executed, it invokes the inner function stored in the variable x. Since the inner function has access to its surrounding lexical environment, it can access the value of a defined in the outer function scope, which is 12. As a result, it displays an alert box with the value 12.
+                </p>
+                <PRE>Q8 -  "var globalVar = ""xyz"";
+
+                    (function outerFunc(outerArg) {
+                        var outerVar = 'a';
+                        
+                        (function innerFunc(innerArg) {
+                        var innerVar = 'b';
+                        
+                        console.log(
+                            ""outerArg = "" + outerArg + ""\n"" +
+                            ""innerArg = "" + innerArg + ""\n"" +
+                            ""outerVar = "" + outerVar + ""\n"" +
+                            ""innerVar = "" + innerVar + ""\n"" +
+                            ""globalVar = "" + globalVar);
+                        
+                        })(456);
+                    })(123);"</PRE>
+                    <p>ANS- outerArg = 123 <br>
+                        innerArg = 456 <br>
+                        outerVar = a <br>
+                        innerVar = b <br>
+                        globalVar = xyz <br>
+                        </p>
+                    <script src="closure.js"></script>
+</body>
+</html>
